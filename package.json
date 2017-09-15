@@ -1,0 +1,36 @@
+{
+  "name": "teamcity-reporting",
+  "version": "0.1.0",
+  "description": "Better TeamCity build integration",
+  "keywords": [
+    "teamcity"
+  ],
+  "main": "dist/index.js",
+  "repository": "https://github.com/piratus/teamcity-reporting",
+  "author": "Andrew Popovych <piratus@gmail.com> (http://piratus.net/)",
+  "license": "WTFPL",
+  "files": [
+    "bin",
+    "dist",
+    "src",
+    ".babelrc",
+    "README.md"
+  ],
+  "scripts": {
+    "prebuild": "npm run test",
+    "build": "babel -d ./dist ./src",
+    "lint": "eslint .",
+    "test": "jest",
+    "prepublish": "npm run build"
+  },
+  "bin": {
+    "tsm": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^21.1.0"
+  }
+}

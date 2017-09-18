@@ -1,33 +1,37 @@
-import format from './format'
+import path from 'path'
+import tsm from './index'
 
-function message(text) {
-  console.log(format('format', text))
-}
 
+/**
+ * @param {JestConfig} [globalConfig={}]
+ * @param {ReporterOptions} [options={}]
+ */
 class JestTestReporter {
-  /**
-   * @param {JestConfig} [globalConfig={}]
-   * @param {ReporterOptions} [options={}]
-   */
   constructor(globalConfig = {}, options = {}) {
     this.globalConfig = globalConfig
     this.options = options
+
+    this.name = globalConfig.rootDir || 'Jest test suite'
+  }
+
+  relativePath(absolutePath) {
+    const { rootDir } = this.globalConfig
+    return rootDir ? path.relative(rootDir, absolutePath) : absolutePath
   }
 
   /**
    * @param {AggregatedResult} results
    * @param {ReporterOnStartOptions} options
    */
-  onRunStart(results, options) {
-    // console.log([Object.keys(results), Object.keys(options)])
-    message(`::onRunStart(suites=${results.numTotalTestSuites}, tests=${results.numTotalTests}, estimated=${options.estimatedTime})`)
+  onRunStart(results, options) {  // eslint-disable-line no-unused-vars
+    console.log(tsm.testSuiteStarted(this.name, this.globalConfig))
   }
 
   /**
    * @param {Test} test
    */
   onTestStart(test) {
-    message(`::onTestStart(path=${test.path}`)
+    console.log(tsm.testSuiteStarted(this.relativePath(test.path)))
   }
 
   /**
@@ -35,23 +39,31 @@ class JestTestReporter {
    * @param {TestResult} testResult
    * @param {AggregatedResult} aggregatedResult
    */
-  onTestResult(test, testResult, aggregatedResult) {
-    message(`::onTestResult(path=${test.path}, result=${testResult.failureMessage ? 'ERROR' : 'SUCCESS'}})`)
+  onTestResult(test, testResult, aggregatedResult) {  // eslint-disable-line no-unused-vars
+    testResult.testResults.forEach(result => {
+      const {duration = 0, failureMessages, fullName, status } = result
+      console.log(tsm.testStarted(fullName))
+      if (status !== 'passed') {
+        console.log(tsm.testFailed(fullName, status, failureMessages, null, null))
+      }
+      console.log(tsm.testFinished(fullName, duration))
+
+    })
+    console.log(tsm.testSuiteFinished(this.relativePath(test.path)))
   }
 
   /**
    * @param {Set<Context>} contexts
    * @param {AggregatedResult} results
    */
-  onRunComplete(contexts, results) {
-    message(`::onRunComplete(${results.success})`)
+  onRunComplete(contexts, results) {  // eslint-disable-line no-unused-vars
+    console.log(tsm.testSuiteFinished(this.name))
   }
 
   /**
    * @returns {?Error}
    */
   getLastError() {
-    message('::getLastError')
   }
 
 }

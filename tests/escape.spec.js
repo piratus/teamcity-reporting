@@ -9,6 +9,11 @@ describe('escape', () => {
     expect(escape(1)).toEqual('1')
   })
 
+  it('handles booleans', () => {
+    expect(escape(true)).toEqual('true')
+    expect(escape(false)).toEqual('false')
+  })
+
   it('handles mistakes', () => {
     expect(escape(null)).toEqual('')
   })

@@ -1,10 +1,3 @@
-import format from './format';
+import * as messages from './messages'
 
-/**
- * Send a generic message to TeamCity
- * @param {string} value
- * @param {object} args
- */
-export function message(value, args = {}) {
-  console.log(format('message', {value, ...args}))
-}
+export default messages

@@ -20,7 +20,7 @@
     "prebuild": "npm run test",
     "build": "babel -d ./dist ./src",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "jest ./tests",
     "prepublish": "npm run build"
   },
   "bin": {

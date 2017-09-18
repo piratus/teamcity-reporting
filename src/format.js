@@ -1,14 +1,15 @@
-import escape from './escape';
+import escape from './escape'
 
 function formatArgs(args) {
-    if (typeof args === 'string') {
-      return `'${escape(args)}'`
-    }
-
-    return Object.keys(args)
-        .map((key) => `${key}='${escape(args[key])}'`)
-        .join(' ')
+  if (typeof args === 'string') {
+    return `'${escape(args)}'`
   }
+
+  return Object.keys(args)
+    .filter((key) => args[key] != null)
+    .map((key) => `${key}='${escape(args[key])}'`)
+    .join(' ')
+}
 
 /**
  * Creates a string message understandable by TeamCity

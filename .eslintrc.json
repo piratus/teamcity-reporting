@@ -19,8 +19,9 @@
     "no-var": "error",
     "prefer-arrow-callback": "error",
     "prefer-const": "error",
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", {"avoidEscape": true}],
     "semi": ["error", "never"],
+    "no-console": 0,
     "key-spacing": ["error"]
   }
 }

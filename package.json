@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "description": "Better TeamCity build integration",
   "keywords": [
-    "teamcity"
+    "teamcity",
+    "jest"
   ],
   "main": "dist/index.js",
   "repository": "https://github.com/piratus/teamcity-reporting",
+  "bugs": "https://github.com/piratus/teamcity-reporting/issues",
   "author": "Andrew Popovych <piratus@gmail.com> (http://piratus.net/)",
   "license": "WTFPL",
+  "engines": {
+    "node": ">=8"
+  },
   "files": [
     "bin",
     "dist",

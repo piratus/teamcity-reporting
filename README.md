@@ -21,5 +21,12 @@ message('Message text')
 ### CLI command
 
 ```bash
-tsm "Message text"
+$ tcsm message "Message text"
+##teamcity[message text='Message text']
+
+$ tcsm groupOpened 'group-name'
+##temamcity[groupOpened name='group-name']
+
+$ tcsm groupClosed 'group-name'
+##temamcity[groupClosed name='group-name']
 ```

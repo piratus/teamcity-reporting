@@ -1,11 +1,15 @@
 #!/usr/bin/env node
-const { message, blockOpened, blockClosed} = require('../dist/messages')
+const { message, blockOpened, blockClosed, compilationFinished, compilationStarted } = require('../dist/messages')
+
+function cleanupArgs({ _, version, help, $0, ...args }) {
+  return args;
+}
 
 const argv = require('yargs')
   .command({
     command: 'message <text>',
     aliases: ['msg'],
-    desc: 'A simple message',
+    describe: 'A simple message',
     builder(yargs) {
       return yargs
         .option('status', {
@@ -13,27 +17,43 @@ const argv = require('yargs')
           choices: ['ERROR', 'WARNING'],
         })
     },
-    handler({text, _, version, help, $0, ...args}) {
-      console.log(message(text, args))
+    handler({text, ...args}) {
+      console.log(message(text, cleanupArgs(args)))
     },
   })
   .command({
     command: 'blockOpened <name> [description]',
-    desc: 'Open a message block',
+    describe: 'Open a message block',
     builder(yargs) {},
-    handler({name, description, _, version, help, $0, ...args}) {
-      console.log(blockOpened(name, description, args))
+    handler({name, description, ...args}) {
+      console.log(blockOpened(name, description, cleanupArgs(args)))
     },
   })
   .command({
     command: 'blockClosed <name>',
-    desc: 'Close a message block',
+    describe: 'Close a message block',
     builder(yargs) {},
-    handler({name, _, version, help, $0, ...args}) {
-      console.log(blockClosed(name, args))
+    handler({name, ...args}) {
+      console.log(blockClosed(name, cleanupArgs(args)))
     },
   })
-  .demandCommand()
+  .command({
+    command: 'compilationStarted <compiler>',
+    describe: 'Start compilation',
+    builder(yargs) {},
+    handler({compiler, ...args}) {
+      console.log(compilationStarted(compiler, cleanupArgs(args)))
+    },
+  })
+  .command({
+    command: 'compilationFinished <compiler>',
+    describe: 'Finish compilation',
+    builder(yargs) {},
+    handler({compiler, ...args}) {
+      console.log(compilationFinished(compiler, cleanupArgs(args)))
+    },
+  })
+  .demandCommand(1)
   .help()
   .wrap(72)
   .argv

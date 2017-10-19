@@ -1,5 +1,5 @@
 import path from 'path'
-import tsm from './index'
+import { testFailed, testFinished, testStarted, testSuiteFinished, testSuiteStarted } from './messages'
 
 
 /**
@@ -24,14 +24,14 @@ class JestTestReporter {
    * @param {ReporterOnStartOptions} options
    */
   onRunStart(results, options) {  // eslint-disable-line no-unused-vars
-    console.log(tsm.testSuiteStarted(this.name, this.globalConfig))
+    console.log(testSuiteStarted(this.name, this.globalConfig))
   }
 
   /**
    * @param {Test} test
    */
   onTestStart(test) {
-    console.log(tsm.testSuiteStarted(this.relativePath(test.path)))
+    console.log(testSuiteStarted(this.relativePath(test.path)))
   }
 
   /**
@@ -42,14 +42,14 @@ class JestTestReporter {
   onTestResult(test, testResult, aggregatedResult) {  // eslint-disable-line no-unused-vars
     testResult.testResults.forEach(result => {
       const {duration = 0, failureMessages, fullName, status } = result
-      console.log(tsm.testStarted(fullName))
+      console.log(testStarted(fullName))
       if (status !== 'passed') {
-        console.log(tsm.testFailed(fullName, status, failureMessages, null, null))
+        console.log(testFailed(fullName, status, failureMessages, null, null))
       }
-      console.log(tsm.testFinished(fullName, duration))
+      console.log(testFinished(fullName, duration))
 
     })
-    console.log(tsm.testSuiteFinished(this.relativePath(test.path)))
+    console.log(testSuiteFinished(this.relativePath(test.path)))
   }
 
   /**
@@ -57,15 +57,8 @@ class JestTestReporter {
    * @param {AggregatedResult} results
    */
   onRunComplete(contexts, results) {  // eslint-disable-line no-unused-vars
-    console.log(tsm.testSuiteFinished(this.name))
+    console.log(testSuiteFinished(this.name))
   }
-
-  /**
-   * @returns {?Error}
-   */
-  getLastError() {
-  }
-
 }
 
 module.exports = JestTestReporter

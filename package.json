@@ -1,6 +1,6 @@
 {
   "name": "teamcity-reporting",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Better TeamCity build integration",
   "keywords": [
     "teamcity",

@@ -24,7 +24,7 @@ class JestTestReporter {
    * @param {ReporterOnStartOptions} options
    */
   onRunStart(results, options) {  // eslint-disable-line no-unused-vars
-    console.log(testSuiteStarted(this.name, this.globalConfig))
+    console.log(testSuiteStarted(this.name))
   }
 
   /**

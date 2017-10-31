@@ -11,7 +11,7 @@ class JestTestReporter {
     this.globalConfig = globalConfig
     this.options = options
 
-    this.name = globalConfig.rootDir || 'Jest test suite'
+    this.name = path.dirname(globalConfig.rootDir) || 'Jest test suite'
   }
 
   relativePath(absolutePath) {

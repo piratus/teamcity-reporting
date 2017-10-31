@@ -19,7 +19,9 @@
     "dist",
     "src",
     ".babelrc",
-    "README.md"
+    "README.md",
+    "index.js",
+    "jest.js"
   ],
   "scripts": {
     "prebuild": "npm run test",

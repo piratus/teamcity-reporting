@@ -1,5 +1,6 @@
 import path from 'path'
 import { testFailed, testFinished, testStarted, testSuiteFinished, testSuiteStarted } from './messages'
+import { default as getFlowId } from './flow-id'
 
 
 /**
@@ -12,6 +13,7 @@ class JestTestReporter {
     this.options = options
 
     this.name = path.dirname(globalConfig.rootDir) || 'Jest test suite'
+    this._suites = {}
   }
 
   relativePath(absolutePath) {
@@ -31,7 +33,9 @@ class JestTestReporter {
    * @param {Test} test
    */
   onTestStart(test) {
-    console.log(testSuiteStarted(this.relativePath(test.path)))
+    const relPath = this.relativePath(test.path)
+    const flowId = this._suites[relPath] = getFlowId()
+    console.log(testSuiteStarted(relPath, { flowId }))
   }
 
   /**
@@ -40,16 +44,19 @@ class JestTestReporter {
    * @param {AggregatedResult} aggregatedResult
    */
   onTestResult(test, testResult, aggregatedResult) {  // eslint-disable-line no-unused-vars
+    const relPath = this.relativePath(test.path)
+    const flowId = this._suites[relPath]
+
     testResult.testResults.forEach(result => {
       const {duration = 0, failureMessages, fullName, status } = result
-      console.log(testStarted(fullName))
+      console.log(testStarted(fullName, false, { flowId }))
       if (status !== 'passed') {
-        console.log(testFailed(fullName, status, failureMessages, null, null))
+        console.log(testFailed(fullName, status, failureMessages, null, null, { flowId }))
       }
-      console.log(testFinished(fullName, duration))
+      console.log(testFinished(fullName, duration, { flowId }))
 
     })
-    console.log(testSuiteFinished(this.relativePath(test.path)))
+    console.log(testSuiteFinished(relPath, { flowId }))
   }
 
   /**

@@ -16,13 +16,10 @@ export default function escape(value) {
   }
 
   return String(value)
-    .replace(/\|/g, '||')
+    .replace(/([[\]'|])/g, '|$1')
     .replace(/\n/g, '|n')
     .replace(/\r/g, '|r')
-    .replace(/\[/g, '|[')
-    .replace(/\]/g, '|]')
     .replace(/\u0085/g, '|x') // next line
     .replace(/\u2028/g, '|l') // line separator
     .replace(/\u2029/g, '|p') // paragraph separator
-    .replace(/'/g, '|\'')
 }

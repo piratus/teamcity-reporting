@@ -1,1 +1,4 @@
-module.exports = require('./dist').default
+module.exports = {
+  flowId: require('./dist/flow-id'),
+  messages: require('./dist/messages'),
+}

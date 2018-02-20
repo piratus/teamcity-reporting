@@ -2,7 +2,8 @@ import escape from '../src/escape'
 
 describe('escape', () => {
   it('escapes dangerous symbols', () => {
-    expect(escape('[line\nline\rpipe|]')).toEqual('|[line|nline|rpipe|||]')
+    expect(escape('\'[line\nline\rpipe|]'))
+      .toEqual('|\'|[line|nline|rpipe|||]')
   })
 
   it('handles numbers', () => {

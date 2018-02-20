@@ -24,15 +24,15 @@ message('Message text')
 $ tcsm message "Message text"
 ##teamcity[message text='Message text']
 
-$ tcsm blockOpened 'block-name' 'Optional description']
+$ tcsm blockOpened 'block-name' 'Optional description'
 ##teamcity[blockOpened name='block-name' description='Optional description']
 
 $ tcsm blockClosed 'block-name'
 ##teamcity[blockClosed name='block-name']
 
-$ tcsm compilationStarted 'compiler']
+$ tcsm compilationStarted 'compiler'
 ##teamcity[compilationStarted compiler='compiler']
 
-$ tcsm compilationFinished 'compiler']
+$ tcsm compilationFinished 'compiler'
 ##teamcity[compilationFinished compiler='compiler']
 ```

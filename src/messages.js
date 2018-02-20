@@ -1,4 +1,8 @@
-import format from './format'
+import tsm, { Message } from 'teamcity-service-messages'
+
+tsm.autoFlowId = false;
+
+const format = (name, args) => new Message(name, args).toString()
 
 /**
  * A generic TeamCity message

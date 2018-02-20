@@ -1,6 +1,6 @@
 {
   "name": "teamcity-reporting",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Better TeamCity build integration",
   "keywords": [
     "teamcity",
@@ -24,25 +24,27 @@
     "jest.js"
   ],
   "scripts": {
-    "prebuild": "npm run test",
+    "prebuild": "rm -rf ./dist",
     "build": "babel -d ./dist ./src",
     "lint": "eslint .",
     "test": "jest ./tests",
-    "prepublish": "npm run build"
+    "prepublish": "npm run test && npm run build"
   },
   "bin": {
-    "tcsm": "./bin/cli.js"
+    "tcsm": "./dist/cli.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-jest": "^21.0.2",
+    "babel-jest": "^22.2.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.0",
-    "jest": "^21.1.0"
+    "jest": "^22.3.0"
   },
   "dependencies": {
-    "yargs": "^9.0.1"
-  }
+    "teamcity-service-messages": "^0.1.9",
+    "yargs": "^11.0.0"
+  },
+  "jest": {}
 }

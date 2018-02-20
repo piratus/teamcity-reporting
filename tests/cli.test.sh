@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-alias tcsm='$(pwd)/bin/cli.js'
+alias tcsm='$(pwd)/dist/cli.js'
 
 tcsm message "OHAI"
 tcsm compilationStarted "i18n"
